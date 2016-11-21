@@ -1,0 +1,46 @@
+import /init.recovery.tweaks.rc
+
+on property:ro.crypto.state=encrypted
+	chmod 0750 /qseecom.sh
+	start qseecom
+
+service qseecom /sbin/sh /sbin/qseecom.sh
+	disabled
+	user root
+	group root
+	seclabel u:r:recovery:s0
+
+service fixdate /sbin/sh /sbin/fixdate.sh
+	oneshot
+	disabled
+	user root
+	group root
+	seclabel u:r:recovery:s0
+service datediag /sbin/sh /sbin/datediag.sh
+	oneshot
+	disabled
+	user root
+	group root
+	seclabel u:r:recovery:s0
+
+on boot
+    # save battery by switching to interactive once booted
+# now using maple in init.recovery.tweaks.rc
+#    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
+#    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor interactive
+#    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor interactive
+#    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor interactive
+
+    # dim the secondary screen backlight as best as we can
+    write /sys/devices/soc/900000.qcom,mdss_mdp/900000.qcom,mdss_mdp:qcom,mdss_fb_primary/leds/lcd-backlight-ex/brightness 0
+    chmod 0750 /sbin/fixdate.sh
+    chmod 0750 /sbin/datediag.sh
+    chmod 0750 /sbin/vendor.sh
+    start fixdate
+    start datediag
+on fs
+    # needed to make qseecomd work in recovery
+    chmod 0660 /dev/qseecom
+    chown system drmrpc /dev/qseecom
+    chmod 0664 /dev/ion
+    chown system system /dev/ion

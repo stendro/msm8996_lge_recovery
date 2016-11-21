@@ -1,0 +1,20 @@
+[
+	{
+		"remote": "github",
+		"repository": "TeamWin/android_device_qcom_common",
+		"target_path": "device/qcom/common",
+		"revision": "android-7.1"
+	},
+	{
+		"remote": "github",
+		"repository": "Phoenix591/android_external_zip",
+		"target_path": "external/zip",
+		"revision": "lineage-15.1"
+	},
+	{
+		"remote": "github",
+		"repository": "Phoenix591/lg-v20-tools",
+		"target_path": "external/kdzwriter",
+		"revision": "kdzwriter"
+	}
+]
