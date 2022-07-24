@@ -4,6 +4,8 @@ on boot
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor schedutil
     # dim the secondary screen backlight as best as we can
     write /sys/devices/soc/900000.qcom,mdss_mdp/900000.qcom,mdss_mdp:qcom,mdss_fb_primary/leds/lcd-backlight-ex/brightness 0
+    # Set GPU idle to 133 Mhz
+    write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 6
 
     start vendor
 
