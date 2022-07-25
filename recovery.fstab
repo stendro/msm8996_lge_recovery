@@ -1,22 +1,17 @@
 /boot		emmc	/dev/block/bootdevice/by-name/boot
 /recovery	emmc	/dev/block/bootdevice/by-name/recovery	flags=backup=1
-/system		ext4	/dev/block/bootdevice/by-name/system
-/system_image	emmc	/dev/block/bootdevice/by-name/system
+/system_root	ext4	/dev/block/bootdevice/by-name/system	flags=display="System";wipeingui
+/system_image	emmc	/dev/block/bootdevice/by-name/system	flags=backup=1;flashimg=1
 /data		ext4	/dev/block/bootdevice/by-name/userdata	flags=encryptable=/dev/block/bootdevice/by-name/encrypt
-/data_image	emmc	/dev/block/bootdevice/by-name/userdata	flags=backup=1;display="Beta:Data Image w/ storage";
 /cache		ext4	/dev/block/bootdevice/by-name/cache
-#Added misc to fix OTAs
-/misc		emmc	/dev/block/bootdevice/by-name/misc
+/misc		emmc	/dev/block/bootdevice/by-name/misc	flags=backup=1;display="Misc"
 /efs1		emmc	/dev/block/bootdevice/by-name/modemst1	flags=backup=1;display="EFS"
 /efs2		emmc	/dev/block/bootdevice/by-name/modemst2	flags=backup=1;subpartitionof=/efs1
 /efsg		emmc	/dev/block/bootdevice/by-name/fsg	flags=backup=1;subpartitionof=/efs1
 /firmware	vfat	/dev/block/bootdevice/by-name/modem	flags=backup=1;display="Firmware";mounttodecrypt;fsflags=context=u:object_r:firmware_file:s0
-/laf		emmc	/dev/block/bootdevice/by-name/laf	flags=backup=1;display="LAF/Download Mode";flashimg
 # /modem and /persist are added for flashing OTA files
-/modem		emmc	/dev/block/bootdevice/by-name/modem	flags=display="Modem";flashimg
-/persist	ext4	/dev/block/bootdevice/by-name/persist	flags=display="Persist";flashimg
-/external_sd	vfat	/dev/block/mmcblk0p1 /dev/block/mmcblk0	flags=storage;wipeingui;removable;encryptable=/dev/block/bootdevice/by-name/encrypt
-/usb-otg	vfat	/dev/block/sdh* /dev/block/sdh		flags=storage;wipeingui;removable
-/vendor		ext4	/dev/block/bootdevice/by-name/vendor	flags=removable;backup=1
-/vendor_image	emmc	/dev/block/bootdevice/by-name/vendor	flags=removable;backup=0;flashimg
-
+/modem		emmc	/dev/block/bootdevice/by-name/modem	flags=display="Modem";flashimg=1
+/persist	emmc	/dev/block/bootdevice/by-name/persist	flags=display="Persist";flashimg=1
+/laf		emmc	/dev/block/bootdevice/by-name/laf	flags=backup=1;display="LAF/Download Mode";flashimg
+/external_sd	auto	/dev/block/mmcblk0p1 /dev/block/mmcblk0	flags=display="microSD Card";storage;wipeingui;removable;encryptable=/dev/block/bootdevice/by-name/encrypt
+/usb-otg	auto	/dev/block/sdh1 /dev/block/sdh		flags=display="USB-OTG";storage;wipeingui;removable
