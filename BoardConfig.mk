@@ -84,7 +84,25 @@ TW_IGNORE_MISC_WIPE_DATA := true
 TARGET_HW_DISK_ENCRYPTION := true
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 TW_INCLUDE_CRYPTO := true
-TW_CRYPTO_USE_SYSTEM_VOLD := true
+# TW_CRYPTO_USE_SYSTEM_VOLD := true
+TW_INCLUDE_CRYPTO_FBE := true
+TW_INCLUDE_FBE := true
+
+# SkyHawk Recovery
+SHRP_PATH := $(DEVICE_PATH)
+SHRP_MAINTAINER := stendro
+SHRP_DEVICE_CODE := H910
+SHRP_EDL_MODE := 0
+SHRP_EXTERNAL := /external_sd
+SHRP_INTERNAL := /sdcard
+SHRP_OTG := /usb_otg
+SHRP_FLASH := 1
+SHRP_FONP_1 := /sys/class/leds/led:torch_0
+SHRP_FONP_2 := /sys/class/leds/led:switch
+SHRP_REC := /dev/block/bootdevice/by-name/recovery
+SHRP_REC_TYPE := SAR
+SHRP_STATUSBAR_RIGHT_PADDING := 48
+SHRP_STATUSBAR_LEFT_PADDING := 48
 
 # Shift TWRP off the secondary screen
 # Top
