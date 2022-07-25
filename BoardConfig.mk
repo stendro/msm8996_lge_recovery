@@ -8,11 +8,6 @@ TARGET_BOOTLOADER_BOARD_NAME := msm8996
 TARGET_BOARD_PLATFORM := msm8996
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno530
 
-# Flags
-#TARGET_GLOBAL_CFLAGS +=
-#TARGET_GLOBAL_CPPFLAGS +=
-#COMMON_GLOBAL_CFLAGS +=
-
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
@@ -35,7 +30,7 @@ TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/$(BOARD_KERNEL_IMAGE_NAME)
 
 # Boot image
 BOARD_KERNEL_CMDLINE := user_debug=31 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 cma=32M@0-0xffffffff
-BOARD_KERNEL_CMDLINE += androidboot.hardware=elsa androidboot.bootdevice=624000.ufshc quiet androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE += androidboot.hardware=elsa androidboot.bootdevice=624000.ufshc androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_PAGESIZE := 4096
 # Same as defaults it seems
@@ -80,14 +75,17 @@ TW_INPUT_BLACKLIST := "hbtp_vm"
 # Ignore LG's bootloader wipe commands
 TW_IGNORE_MISC_WIPE_DATA := true
 
+# << JUST ADD A BUNCH TO CHECK OUT LATER >>
 # Encryption support
-TARGET_CRYPTFS_HW_PATH := vendor/qcom/opensource/cryptfs_hw
-TARGET_HW_DISK_ENCRYPTION := true
-TARGET_KEYMASTER_WAIT_FOR_QSEE := true
-TW_INCLUDE_CRYPTO := true
-TW_CRYPTO_USE_SYSTEM_VOLD := true
-TW_INCLUDE_CRYPTO_FBE := true
-TW_INCLUDE_FBE := true
+# TARGET_CRYPTFS_HW_PATH := vendor/qcom/opensource/cryptfs_hw
+# TARGET_HW_DISK_ENCRYPTION := true
+# TARGET_KEYMASTER_WAIT_FOR_QSEE := true
+# TW_INCLUDE_CRYPTO := true
+# TW_CRYPTO_USE_SYSTEM_VOLD := true
+# TW_INCLUDE_CRYPTO_FBE := true
+# TW_INCLUDE_FBE := true
+# BOARD_USES_QCOM_DECRYPTION := true
+# BOARD_USES_QCOM_FBE_DECRYPTION := true
 
 # SkyHawk Recovery
 SHRP_PATH := $(DEVICE_PATH)
@@ -98,7 +96,7 @@ SHRP_EXTERNAL := /external_sd
 SHRP_INTERNAL := /sdcard
 SHRP_OTG := /usb_otg
 SHRP_FLASH := 1
-SHRP_CUSTOM_FLASHLIGHT := true
+# SHRP_CUSTOM_FLASHLIGHT := true
 SHRP_FLASH_MAX_BRIGHTNESS := 800
 SHRP_FONP_1 := /sys/class/leds/led:torch_0/brightness
 SHRP_FONP_2 := /sys/class/leds/led:torch_1/brightness
