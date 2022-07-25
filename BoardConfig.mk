@@ -81,11 +81,11 @@ TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_IGNORE_MISC_WIPE_DATA := true
 
 # Encryption support
-TARGET_CRYPTFS_HW_PATH := vendor/qcom/opensource/commonsys/cryptfs_hw
+TARGET_CRYPTFS_HW_PATH := vendor/qcom/opensource/cryptfs_hw
 TARGET_HW_DISK_ENCRYPTION := true
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 TW_INCLUDE_CRYPTO := true
-# TW_CRYPTO_USE_SYSTEM_VOLD := true
+TW_CRYPTO_USE_SYSTEM_VOLD := true
 TW_INCLUDE_CRYPTO_FBE := true
 TW_INCLUDE_FBE := true
 
