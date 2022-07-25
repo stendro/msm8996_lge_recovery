@@ -1,58 +1,59 @@
 #!/sbin/sh
-if !  mountpoint /system; then
-	mount -o ro /system
-fi
-if [ -d /system/system ]; then
-	export GSI=true
-	mkdir /gsi
-	mount --bind /system/system /gsi
+
+if [ -z "`mount | grep ' /system '`" ]; then
+    mount -o ro /system
 fi
 
-while ! mountpoint  /data; do
-	if [ -z "$GSI" ]; then
-		export system=/system
-	else #if system as root treat /system/system (bind mounted at /gsi) as /system
-		export system=/gsi
-	fi
-	if ! mountpoint /system; then #mount system if not already mounted
-      		mount /system -o ro
-	fi
-        if blkid /dev/block/bootdevice/by-name/vendor | grep ext4; then
-		if [ ! -d /vendor ]; then # create a /vendor directory to mount onto if not there
-			if [ -L /vendor ]; then #if it exists and isnt a directory get it out of the way
-				rm /vendor
-			fi
-			mkdir /vendor
-		fi
-                mount /dev/block/bootdevice/by-name/vendor /vendor -t ext4 -o ro
-        else
-		if [ -d /vendor ]; then
-			rmdir /vendor
-		fi
-		if [ ! -L /vendor ]; then
-        		ln -s $system/vendor /vendor #if no vendor partition symlink it
+if [ "`blkid /dev/block/bootdevice/by-name/vendor`" ]; then
+    if [ -L /vendor ]; then
+        rm /vendor
+    fi
+    if [ ! -d /vendor ]; then
+        mkdir /vendor
+    fi
+    if [ -z "`mount | grep ' /vendor '`" ]; then
+        mount -o ro /vendor
+    fi
+fi
 
-		fi
-        fi
-        if [ -f $system/bin/qseecomd ]; then
-#                start sys_qseecomd
-		if [ -z "$(pidof qseecomd)" ]; then #make sure it isnt already running
-			LD_LIBRARY_PATH='$system/lib64:$system/lib' PATH='$system/bin' $system/bin/qseecomd &
-		fi
-        else
-#                start ven_qseecomd
-		if [ -z "$(pidof qseecomd)" ]; then
-			LD_LIBRARY_PATH='/vendor/lib64:$system/lib64:/vendor/lib:$system/lib' PATH='/vendor/bin:$system/bin' /vendor/bin/qseecomd &
-		fi
-        fi
-	if [ ! -z "$GSI" ]; then
-		if [ -z "(pidof vold)" ]; then
-			start gsi_vold
-		fi
-	fi
+if [ -z "`ls -A /vendor`" ]; then
+    if [ "`mount | grep ' /vendor '`" ]; then
+        umount /vendor
+    fi
+    if [ -d /vendor ]; then
+        rmdir /vendor
+    fi
+    ln -sf /system/vendor /vendor
+fi
+
+if [ -z "`pgrep qseecomd`" ]; then
+    if [ -f /system/bin/qseecomd ]; then
+        LD_LIBRARY_PATH='/system/lib64:/system/lib' PATH='/system/bin' /system/bin/qseecomd &
+    else
+        LD_LIBRARY_PATH='/vendor/lib64:/vendor/lib:/system/lib64:/system/lib' PATH='/vendor/bin:/system/bin' /vendor/bin/qseecomd &
+    fi
+fi
+
+for retry in `seq 0 60`; do
+    case `getprop ro.crypto.fs_crypto_blkdev` in
+        /dev/block/dm-*) cryptodone=1 ;;
+    esac
+    if [ "$cryptodone" ]; then
+        echo "I:Decryption successful, took $retry seconds" >> /tmp/recovery.log
+        break
+    elif [ "$retry" -eq 60 ]; then
+        echo "E:Decryption failed, timed out" >> /tmp/recovery.log
+        break
+    fi
+    sleep 1
 done
-#data now mounted. Clean up
-if [ ! -z "$GSI" ]; then
-	umount /gsi
+
+killall qseecomd
+
+if [ "`mount | grep ' /system '`" ]; then
+    umount /system
 fi
-umount /system
+
+if [ "`mount | grep ' /vendor '`" ]; then
+    umount /vendor
+fi
