@@ -21,11 +21,31 @@ on fs
     chmod 0664 /dev/ion
     chown system system /dev/ion
 
-on property:ro.crypto.state=encrypted
-    start qseecom
+on set-pwr-normal
+    # Set bus-dcvs
+    write /sys/class/devfreq/soc:qcom,cpubw/governor "bw_hwmon"
+    write /sys/class/devfreq/soc:qcom,cpubw/polling_interval 50
+    write /sys/class/devfreq/soc:qcom,cpubw/min_freq 1525
+    write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/mbps_zones "1525 5195 11863 13763"
+    write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/sample_ms 4
+    write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/io_percent 34
+    write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/hist_memory 20
+    write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/hyst_length 10
+    write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/low_power_ceil_mbps 0
+    write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/low_power_io_percent 34
+    write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/low_power_delay 20
+    write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/guard_band_mbps 0
+    write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/up_scale 250
+    write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/idle_mbps 1600
 
-on property:init.svc.recovery=running
-    start fixyear
+    write /sys/class/devfreq/soc:qcom,memlat-cpu0/governor "mem_latency"
+    write /sys/class/devfreq/soc:qcom,memlat-cpu0/polling_interval 10
+    write /sys/class/devfreq/soc:qcom,memlat-cpu2/governor "mem_latency"
+    write /sys/class/devfreq/soc:qcom,memlat-cpu2/polling_interval 10
+    write /sys/class/devfreq/soc:qcom,mincpubw/governor "cpufreq"
+
+    # Set lpm
+    write /sys/module/lpm_levels/parameters/sleep_disabled "N"
 
 service vendor /sbin/sh /system/bin/vendor.sh
     oneshot
@@ -47,3 +67,10 @@ service fixyear /sbin/sh /system/bin/fixyear.sh
     user root
     group root
     seclabel u:r:recovery:s0
+
+on property:ro.crypto.state=encrypted
+    start qseecom
+
+on property:init.svc.recovery=running
+    trigger set-pwr-normal
+    start fixyear
