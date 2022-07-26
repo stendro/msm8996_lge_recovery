@@ -49,9 +49,6 @@ BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
-# System-as-root
-BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
-
 # TWRP specific build flags
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
 TARGET_OTA_ASSERT_DEVICE := v20,elsa,h910
@@ -102,7 +99,7 @@ SHRP_FONP_1 := /sys/class/leds/led:torch_0/brightness
 SHRP_FONP_2 := /sys/class/leds/led:torch_1/brightness
 SHRP_FONP_3 := /sys/class/leds/led:switch/brightness
 SHRP_REC := /dev/block/bootdevice/by-name/recovery
-SHRP_REC_TYPE := SAR
+SHRP_REC_TYPE := Normal
 SHRP_DEVICE_TYPE := A-Only
 # Padding, for rounded corner screens
 # SHRP_STATUSBAR_RIGHT_PADDING := 48
