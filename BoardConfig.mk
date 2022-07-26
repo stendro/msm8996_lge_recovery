@@ -105,10 +105,11 @@ SHRP_DEVICE_TYPE := A-Only
 # Padding, for rounded corner screens
 # SHRP_STATUSBAR_RIGHT_PADDING := 48
 # SHRP_STATUSBAR_LEFT_PADDING := 48
-SHRP_EXPRESS_USE_DATA := true
 SHRP_OFFICIAL := false
-SHRP_EXPRESS := true
-SHRP_DARK := true
+# SHRP_EXPRESS_USE_DATA := true
+# SHRP_EXPRESS := true
+# Using custom theme
+# SHRP_DARK := true
 
 # Shift TWRP off the secondary screen
 # Top
