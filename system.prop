@@ -1,4 +1,5 @@
-ro.sf.lcd_density=640
-ro.lge.lcd_default_brightness=149
 ro.hardware.keystore=msm8996
+ro.hardware.gatekeeper=msm8996
+sys.usb.controller=6a00000.dwc3
 persist.sys.usb.config=mtp,adb
+ro.sf.lcd_density=640

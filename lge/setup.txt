@@ -1,0 +1,22 @@
+# Device targets
+LGE_G5 := rs988 h850 h830
+LGE_G6 := us997 h872 h870
+LGE_V20 := ls997 us996 vs995 h990 h918 h910
+
+# prepare lge device config
+ifneq ($(filter $(LGE_G5),$(TARGET_DEVICE)),)
+LGE_DEVICE_FAMILY := g5
+else ifneq ($(filter $(LGE_G6),$(TARGET_DEVICE)),)
+LGE_DEVICE_FAMILY := g6
+else ifneq ($(filter $(LGE_V20),$(TARGET_DEVICE)),)
+LGE_DEVICE_FAMILY := v20
+endif
+ifeq ($(LGE_DEVICE_FAMILY),g5)
+LGE_OTA := g5,h1
+else ifeq ($(LGE_DEVICE_FAMILY),g6)
+LGE_OTA := g6,lucye
+else ifeq ($(LGE_DEVICE_FAMILY),v20)
+LGE_OTA := v20,elsa
+endif
+LGE_CODE_NAME := $(shell echo $(LGE_OTA) | cut -d, -f2)
+LGE_DEVICE_UPPER := $(shell echo $(TARGET_DEVICE) | tr a-z A-Z)

@@ -1,0 +1,5 @@
+# Must be included after setup
+#
+# Copy correct init to ramdisk
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/lge/init.recovery.$(LGE_CODE_NAME).rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.$(LGE_CODE_NAME).rc

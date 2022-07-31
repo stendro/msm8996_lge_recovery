@@ -23,10 +23,17 @@
 # *not* include it on all devices, so it is safe even with hardware-specific
 # components.
 
-ifneq ($(filter h910,$(TARGET_DEVICE)),)
-
 LOCAL_PATH := $(call my-dir)
 
-include $(call all-makefiles-under,$(LOCAL_PATH))
+# Device targets
+LGE_G5 := rs988 h850 h830
+LGE_G6 := us997 h872 h870
+LGE_V20 := ls997 us996 vs995 h990 h918 h910
+
+# Enter if valid target
+ifneq ($(filter $(LGE_G5) $(LGE_G6) $(LGE_V20),$(TARGET_DEVICE)),)
+
+subdir_makefiles=$(call first-makefiles-under,$(LOCAL_PATH))
+$(foreach mk,$(subdir_makefiles),$(info including $(mk) ...)$(eval include $(mk)))
 
 endif
