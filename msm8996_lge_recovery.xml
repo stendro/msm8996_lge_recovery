@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<manifest>
+	<remote name="stendro" fetch="https://github.com/stendro"/>
+
+	<project path="device/lge/common" name="msm8996_lge_recovery" remote="stendro" revision="common"/>
+
+	<project path="device/lge/rs988" name="msm8996_lge_recovery" remote="stendro" revision="rs988"/>
+	<project path="device/lge/h850" name="msm8996_lge_recovery" remote="stendro" revision="h850"/>
+	<project path="device/lge/h830" name="msm8996_lge_recovery" remote="stendro" revision="h830"/>
+
+	<project path="device/lge/us997" name="msm8996_lge_recovery" remote="stendro" revision="us997"/>
+	<project path="device/lge/h872" name="msm8996_lge_recovery" remote="stendro" revision="h872"/>
+	<project path="device/lge/h870" name="msm8996_lge_recovery" remote="stendro" revision="h870"/>
+
+	<project path="device/lge/us996d" name="msm8996_lge_recovery" remote="stendro" revision="us996d"/>
+	<project path="device/lge/ls997" name="msm8996_lge_recovery" remote="stendro" revision="ls997"/>
+	<project path="device/lge/us996" name="msm8996_lge_recovery" remote="stendro" revision="us996"/>
+	<project path="device/lge/vs995" name="msm8996_lge_recovery" remote="stendro" revision="vs995"/>
+	<project path="device/lge/h990" name="msm8996_lge_recovery" remote="stendro" revision="h990"/>
+	<project path="device/lge/h918" name="msm8996_lge_recovery" remote="stendro" revision="h918"/>
+	<project path="device/lge/h910" name="msm8996_lge_recovery" remote="stendro" revision="h910"/>
+</manifest>
