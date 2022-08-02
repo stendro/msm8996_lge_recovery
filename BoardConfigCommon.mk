@@ -30,7 +30,7 @@ BOARD_KERNEL_IMAGE_NAME := Image.lz4-dtb
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/$(BOARD_KERNEL_IMAGE_NAME)
 
 # Boot image
-BOARD_KERNEL_CMDLINE := user_debug=31 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 cma=32M@0-0xffffffff
+BOARD_KERNEL_CMDLINE := user_debug=31 msm_rtb.filter=0x237 lpm_levels.sleep_disabled=1 cma=32M@0-0xffffffff
 BOARD_KERNEL_CMDLINE += androidboot.bootdevice=624000.ufshc androidboot.selinux=permissive
 BOARD_KERNEL_CMDLINE += androidboot.hardware=$(LGE_CODE_NAME)
 BOARD_KERNEL_BASE := 0x80000000
