@@ -14,9 +14,11 @@
 /modem		emmc	/dev/block/bootdevice/by-name/modem		flags=display="Modem";flashimg=1
 /persist	emmc	/dev/block/bootdevice/by-name/persist		flags=display="Persist";flashimg=1
 /laf		emmc	/dev/block/bootdevice/by-name/laf		flags=backup=1;display="LAF/Download Mode";flashimg
-/external_sd	auto	/dev/block/mmcblk0p1				flags=display="microSD Card";storage;wipeingui;removable;encryptable=/dev/block/bootdevice/by-name/encrypt
-/usb_otg	auto	/dev/block/sdi1					flags=display="USB OTG";storage;wipeingui;removable
+/external_sd	auto	/dev/block/mmcblk0p1 /dev/block/mmcblk0		flags=display="microSD Card";storage;wipeingui;removable;encryptable=/dev/block/bootdevice/by-name/encrypt
+
+# disable v1 otg entry in favor of v2, which works irrespective of device/firmware version
+# /usb_otg	auto	/dev/block/sdi1 /dev/block/sdi			flags=display="USB OTG";storage;wipeingui;removable
 
 # fstab v2 entries
 # /devices/soc/74a4900.sdhci/mmc_host*					/external_sd	auto	nosuid,nodev	wait,voldmanaged=sdcard0:auto,noemulatedsd,encryptable=/dev/block/bootdevice/by-name/encrypt
-# /devices/soc/6a00000.ssusb/6a00000.dwc3/xhci-hcd.0.auto/usb*		/usb_otg	auto	defaults	voldmanaged=usb0:auto
+/devices/soc/6a00000.ssusb/6a00000.dwc3/xhci-hcd.0.auto/usb*		/usb_otg	auto	defaults	voldmanaged=usb:auto
