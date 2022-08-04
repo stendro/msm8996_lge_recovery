@@ -28,7 +28,7 @@ LOCAL_PATH := $(call my-dir)
 # Device targets
 LGE_G5 := rs988 h850 h830
 LGE_G6 := us997 h872 h870
-LGE_V20 := ls997 us996 vs995 h990 h918 h910
+LGE_V20 := ls997 us996 us996d vs995 h990 h918 h910
 
 # Enter if valid target
 ifneq ($(filter $(LGE_G5) $(LGE_G6) $(LGE_V20),$(TARGET_DEVICE)),)
