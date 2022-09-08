@@ -4,11 +4,12 @@ LGE_G6 := us997 h872 h870
 LGE_V20 := ls997 us996 us996d vs995 h990 h918 h910
 
 # Prepare lge device config
-ifneq ($(filter $(LGE_G5),$(TARGET_DEVICE)),)
+LGE_DEVICE := $(TARGET_DEVICE)
+ifneq ($(filter $(LGE_G5),$(LGE_DEVICE)),)
 LGE_DEVICE_FAMILY := g5
-else ifneq ($(filter $(LGE_G6),$(TARGET_DEVICE)),)
+else ifneq ($(filter $(LGE_G6),$(LGE_DEVICE)),)
 LGE_DEVICE_FAMILY := g6
-else ifneq ($(filter $(LGE_V20),$(TARGET_DEVICE)),)
+else ifneq ($(filter $(LGE_V20),$(LGE_DEVICE)),)
 LGE_DEVICE_FAMILY := v20
 endif
 ifeq ($(LGE_DEVICE_FAMILY),g5)
@@ -18,13 +19,10 @@ LGE_OTA := g6,lucye
 else ifeq ($(LGE_DEVICE_FAMILY),v20)
 LGE_OTA := v20,elsa
 endif
-
-# Don't use us996d as name
-ifeq ($(TARGET_DEVICE),us996d)
-LGE_DEVICE := us996
-else
-LGE_DEVICE := $(TARGET_DEVICE)
-endif
-
 LGE_CODE_NAME := $(shell echo $(LGE_OTA) | cut -d, -f2)
 LGE_DEVICE_UPPER := $(shell echo $(LGE_DEVICE) | tr a-z A-Z)
+
+# Don't use us996d as name
+ifeq ($(LGE_DEVICE),us996d)
+LGE_DEVICE := us996
+endif

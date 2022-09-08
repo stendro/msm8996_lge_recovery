@@ -22,6 +22,15 @@ PRODUCT_COPY_FILES += \
     $(TZDATAPATH)/tzdata:recovery/root/system/usr/share/zoneinfo/tzdata
 endif
 
+# Set product device
+ifeq ($(PRODUCT_RELEASE_NAME),us996d)
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.product.device=us996
+else
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.product.device=$(PRODUCT_RELEASE_NAME)
+endif
+
 # Device identifier. This must come after all inclusions
 PRODUCT_BRAND := $(BOARD_VENDOR)
 PRODUCT_DEVICE := $(PRODUCT_RELEASE_NAME)
